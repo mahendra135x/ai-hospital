@@ -259,8 +259,12 @@ app.post('/vitals', async (req, res) => {
             'INSERT INTO alerts (patient_id, message, severity) VALUES (?, ?, ?)',
             [patient_id, msg, 'high']
           );
+          const [patientRows] = await db.execute('SELECT name FROM patients WHERE id = ?', [patient_id]);
+          const patient_name = patientRows.length > 0 ? patientRows[0].name : 'Unknown Patient';
+          const location_lat = (Math.random() - 0.5) * 180;
+          const location_lon = (Math.random() - 0.5) * 360;
           io.emit(`alert-${patient_id}`, { patient_id, message: msg, severity: 'high' });
-          io.emit('staff-alert', { patient_id, message: msg, severity: 'high' }); // global alert
+          io.emit('staff-alert', { patient_id, patient_name, message: msg, severity: 'high', location_lat, location_lon }); // global alert
         }
         
       } catch (mlError) {
@@ -398,7 +402,11 @@ app.post('/generate-vitals', async (req, res) => {
               'INSERT INTO alerts (patient_id, message, severity) VALUES (?, ?, ?)',
               [patient_id, `Risk alert: ${alert}`, severity]
             );
-            io.emit('staff-alert', { patient_name: 'Patient ' + patient_id, message: `Risk alert: ${alert}`, severity });
+            const [patientRows] = await db.execute('SELECT name FROM patients WHERE id = ?', [patient_id]);
+            const patient_name = patientRows.length > 0 ? patientRows[0].name : 'Patient ' + patient_id;
+            const location_lat = (Math.random() - 0.5) * 180;
+            const location_lon = (Math.random() - 0.5) * 360;
+            io.emit('staff-alert', { patient_id, patient_name, message: `Risk alert: ${alert}`, severity, location_lat, location_lon });
           }
         } catch (mlError) {
           console.error('ML service error:', mlError);
@@ -539,7 +547,11 @@ setInterval(async () => {
               'INSERT INTO alerts (patient_id, message, severity) VALUES (?, ?, ?)',
               [patient_id, `Risk alert: ${alert}`, severity]
             );
-            io.emit('staff-alert', { patient_name: 'Patient ' + patient_id, message: `Risk alert: ${alert}`, severity });
+            const [patientRows] = await db.execute('SELECT name FROM patients WHERE id = ?', [patient_id]);
+            const patient_name = patientRows.length > 0 ? patientRows[0].name : 'Patient ' + patient_id;
+            const location_lat = (Math.random() - 0.5) * 180;
+            const location_lon = (Math.random() - 0.5) * 360;
+            io.emit('staff-alert', { patient_id, patient_name, message: `Risk alert: ${alert}`, severity, location_lat, location_lon });
           }
         } catch (mlError) {
           console.error('ML service error:', mlError);
