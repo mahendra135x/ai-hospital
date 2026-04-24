@@ -42,25 +42,56 @@ The system leverages a robust Node.js backend, an interactive React Native mobil
 ---
 
 ## 📂 Project Structure
-
 ```text
 ai-hospital/
-├── backend/            # Express REST API & Socket server
-│   ├── .env            # Environment configuration (not committed)
+│
+├── .gitignore
+├── README.md
+│
+├── backend/
+│   ├── .env
+│   ├── check_db.js
+│   ├── create_test_data.js
+│   ├── db.js
+│   ├── generate_vitals.js
+│   ├── migrate_patients.js
+│   ├── package-lock.json
 │   ├── package.json
-│   └── server.js       # Main entry point (assumed)
-├── database/           # Database initialization scripts
-│   └── init.sql        # Table schemas and initial database setup
-├── ml-service/         # Python ML prediction service
-│   ├── main.py         # FastAPI endpoints and model loading logic
-│   └── models/         # Directory containing trained .keras and .joblib files
-└── mobile/             # React Native (Expo) mobile frontend
-    ├── src/screens/    # UI screens (Dashboard, PatientDetail, etc.)
-    └── package.json
+│   └── server.js
+│
+├── database/
+│   ├── init.sql
+│   ├── migration_add_resp_rate.sql
+│   └── migration_fix_schema.sql
+│
+├── ml-service/
+│   ├── main.py
+│   └── requirements.txt
+│   └── models/               # (Directory containing .keras/.joblib model files)
+│
+└── mobile/
+    ├── App.js
+    ├── app.json
+    ├── index.js
+    ├── package-lock.json
+    ├── package.json
+    ├── assets/
+    │   ├── adaptive-icon.png
+    │   ├── favicon.png
+    │   ├── icon.png
+    │   └── splash-icon.png
+    └── src/
+        ├── screens/
+        │   ├── AlertsScreen.js
+        │   ├── DashboardScreen.js
+        │   ├── LoginScreen.js
+        │   ├── PatientDetailScreen.js
+        │   └── PermissionsScreen.js
+        └── services/
+            ├── api.js
+            └── socket.js
+
 ```
-
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
