@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const SERVER_URL = 'http://10.2.4.55:5000';
+const SERVER_URL = 'http://<YOUR_IP_ADDRESS>:5000';
 
 const socket = io(SERVER_URL, {
   autoConnect: false, // Connect manually when logged in
