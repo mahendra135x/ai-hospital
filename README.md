@@ -101,6 +101,8 @@ To run this project locally, ensure you have the following installed:
 - [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/) (`npm install -g expo-cli`)
 
+- Below are the steps to run this app in your local device
+
 ### 1. Database Setup
 1. Start your local MySQL server.
 2. Execute the initialization script to set up the database and tables:
